@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ListingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health', function () {
@@ -11,7 +11,16 @@ Route::get('/health', function () {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get('/listings', [ListingController::class, 'index']);
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::post('/listings', [ListingController::class, 'store']);
+    Route::put('/listings/{listing}', [ListingController::class, 'update']);
+    Route::patch('/listings/{listing}/archive', [ListingController::class, 'archive']);
+    Route::post('/listings/{listing}/images', [ListingController::class, 'uploadImages']);
+    Route::delete('/listings/{listing}/images/{imageId}', [ListingController::class, 'deleteImage']);
 });
