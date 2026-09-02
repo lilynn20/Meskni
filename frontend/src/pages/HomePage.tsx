@@ -24,6 +24,7 @@ export function HomePage() {
           <Link className="button button-dark" to={isAuthenticated ? '/account' : '/register'}>{isAuthenticated ? 'Open your account' : 'Start with Meskni'}</Link>
           <Link className="button button-quiet" to="/listings">Browse listings</Link>
           <Link className="button button-quiet" to="/calculators/affordability">Check affordability</Link>
+          <Link className="button button-quiet" to="/calculators/roommate">Split shared costs</Link>
           <span className="welcome-note">Your next chapter starts here.</span>
         </div>
       </section>

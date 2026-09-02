@@ -1144,6 +1144,19 @@ input:focus {
   margin: 20px 0;
 }
 
+.split-total {
+  color: #17251f;
+  font-size: 38px;
+  font-weight: 800;
+  margin: 8px 0 0;
+}
+
+.split-total span {
+  color: #657169;
+  font-size: 14px;
+  font-weight: 400;
+}
+
 .result-interpretation strong {
   color: #17251f;
 }
