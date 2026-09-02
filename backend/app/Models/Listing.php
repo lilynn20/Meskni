@@ -63,4 +63,9 @@ class Listing extends Model
     {
         return $this->hasMany(SavedListing::class);
     }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
 }
