@@ -43,3 +43,29 @@ export type CreateListingPayload = Omit<Listing, 'id' | 'owner_id' | 'status' | 
   available_spots?: number
   status?: string
 }
+
+export type ListingFilters = {
+  city?: string
+  neighborhood?: string
+  min_price?: number
+  max_price?: number
+  property_type?: PropertyType
+  listing_type?: ListingType
+  furnished?: boolean
+  internet_included?: boolean
+  parking?: boolean
+  available_from?: string
+  gender_preference?: GenderPreference
+  page?: number
+  per_page?: number
+}
+
+export type ListingPage = {
+  data: Listing[]
+  meta: {
+    current_page: number
+    per_page: number
+    total: number
+    last_page: number
+  }
+}

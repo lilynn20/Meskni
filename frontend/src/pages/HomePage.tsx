@@ -22,6 +22,7 @@ export function HomePage() {
         <p className="welcome-copy">Meskni brings Morocco&apos;s rental search into one calmer, clearer place.</p>
         <div className="welcome-actions">
           <Link className="button button-dark" to={isAuthenticated ? '/account' : '/register'}>{isAuthenticated ? 'Open your account' : 'Start with Meskni'}</Link>
+          <Link className="button button-quiet" to="/listings">Browse listings</Link>
           <span className="welcome-note">Your next chapter starts here.</span>
         </div>
       </section>
