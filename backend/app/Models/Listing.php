@@ -58,4 +58,9 @@ class Listing extends Model
     {
         return $this->hasMany(ListingImage::class);
     }
+
+    public function savedByUsers(): HasMany
+    {
+        return $this->hasMany(SavedListing::class);
+    }
 }

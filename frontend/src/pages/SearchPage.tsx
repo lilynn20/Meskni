@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { ApiError } from '../api/client'
 import { searchListings } from '../api/listings'
+import { SaveButton } from '../components/SaveButton'
 import type { Listing, ListingFilters, ListingPage } from '../types/listing'
 
 const emptyFilters: ListingFilters = { city: '', neighborhood: '', min_price: undefined, max_price: undefined, property_type: undefined, listing_type: undefined, furnished: undefined, parking: undefined }
@@ -11,7 +12,7 @@ function ListingCard({ listing }: { listing: Listing }) {
     <article className="listing-card-item">
       <div className="listing-placeholder" aria-hidden="true"><span>{listing.property_type}</span></div>
       <div className="listing-card-content">
-        <div className="listing-card-heading"><p className="listing-location">{listing.city} · {listing.neighborhood}</p><span className="listing-price">{listing.rent.toLocaleString()} MAD</span></div>
+        <div className="listing-card-heading"><p className="listing-location">{listing.city} · {listing.neighborhood}</p><div className="listing-card-actions"><span className="listing-price">{listing.rent.toLocaleString()} MAD</span><SaveButton listingId={listing.id} /></div></div>
         <h2>{listing.title}</h2>
         <p className="listing-summary">{listing.description}</p>
         <div className="listing-meta"><span>{listing.listing_type.replace('_', ' ')}</span><span>{listing.max_occupants} occupant{listing.max_occupants === 1 ? '' : 's'}</span>{listing.furnished && <span>Furnished</span>}</div>

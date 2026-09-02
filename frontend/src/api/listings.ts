@@ -1,6 +1,19 @@
 import { apiRequest } from './client'
 import type { CreateListingPayload, Listing, ListingFilters, ListingPage } from '../types/listing'
 
+export async function getSavedListings(): Promise<Listing[]> {
+  const response = await apiRequest<{ data: Listing[] }>('/saved-listings')
+  return response.data
+}
+
+export async function saveListing(id: number): Promise<void> {
+  await apiRequest(`/listings/${id}/save`, { method: 'POST' })
+}
+
+export async function unsaveListing(id: number): Promise<void> {
+  await apiRequest(`/listings/${id}/save`, { method: 'DELETE' })
+}
+
 export async function getListing(id: string): Promise<Listing> {
   const response = await apiRequest<{ data: Listing }>(`/listings/${id}`)
   return response.data

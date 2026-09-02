@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\SavedListingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health', function () {
@@ -23,4 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/listings/{listing}/archive', [ListingController::class, 'archive']);
     Route::post('/listings/{listing}/images', [ListingController::class, 'uploadImages']);
     Route::delete('/listings/{listing}/images/{imageId}', [ListingController::class, 'deleteImage']);
+    Route::get('/saved-listings', [SavedListingController::class, 'index']);
+    Route::post('/listings/{listing}/save', [SavedListingController::class, 'store']);
+    Route::delete('/listings/{listing}/save', [SavedListingController::class, 'destroy']);
 });

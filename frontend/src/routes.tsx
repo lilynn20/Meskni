@@ -7,6 +7,7 @@ import { LoginPage } from './pages/LoginPage'
 import { ListingDetailPage } from './pages/ListingDetailPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { SearchPage } from './pages/SearchPage'
+import { SavedListingsPage } from './pages/SavedListingsPage'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, status } = useAuth()
@@ -39,6 +40,7 @@ export function AppRoutes() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/listings" element={<SearchPage />} />
       <Route path="/listings/:id" element={<ListingDetailPage />} />
+      <Route path="/saved" element={<ProtectedRoute><SavedListingsPage /></ProtectedRoute>} />
       <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
       <Route path="/listings/new" element={<ProtectedRoute><OwnerRoute><CreateListingPage /></OwnerRoute></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
