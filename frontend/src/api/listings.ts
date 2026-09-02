@@ -1,6 +1,16 @@
 import { apiRequest } from './client'
 import type { CreateListingPayload, Listing, ListingFilters, ListingPage } from '../types/listing'
 
+export async function getListing(id: string): Promise<Listing> {
+  const response = await apiRequest<{ data: Listing }>(`/listings/${id}`)
+  return response.data
+}
+
+export function listingImageUrl(path: string): string {
+  const apiUrl = import.meta.env.VITE_API_URL ?? '/api'
+  return `${apiUrl.replace(/\/api\/?$/, '')}/storage/${path}`
+}
+
 export async function searchListings(filters: ListingFilters = {}): Promise<ListingPage> {
   const params = new URLSearchParams()
 

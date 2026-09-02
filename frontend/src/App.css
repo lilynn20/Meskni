@@ -522,6 +522,245 @@ input:focus {
   border: 1px solid #bcc9be;
 }
 
+.detail-breadcrumb {
+  color: #657169;
+  display: flex;
+  font-size: 13px;
+  gap: 9px;
+  margin: 62px auto 25px;
+  max-width: 1120px;
+}
+
+.detail-breadcrumb a {
+  color: #c25634;
+  font-weight: 700;
+}
+
+.detail-layout {
+  display: grid;
+  gap: 48px;
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.75fr);
+  margin: 0 auto;
+  max-width: 1120px;
+}
+
+.gallery-main {
+  aspect-ratio: 4 / 3;
+  background: #cbd8cc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.gallery-main img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.gallery-empty {
+  align-items: center;
+  color: #536058;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.gallery-thumbnails {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  overflow-x: auto;
+}
+
+.thumbnail {
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 0 0 78px;
+  height: 62px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.thumbnail.active {
+  border-color: #c25634;
+}
+
+.thumbnail img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.detail-summary {
+  align-self: center;
+}
+
+.detail-summary h1 {
+  font-size: clamp(38px, 5vw, 64px);
+  letter-spacing: -1.5px;
+}
+
+.detail-location {
+  color: #657169;
+  font-size: 18px;
+  margin-top: 17px;
+}
+
+.detail-price {
+  color: #17251f;
+  font-size: 30px;
+  font-weight: 800;
+  margin-top: 28px;
+}
+
+.detail-price span {
+  color: #657169;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.detail-rule {
+  border-top: 1px solid #cbd5cc;
+  margin: 28px 0;
+}
+
+.owner-line {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.owner-avatar {
+  align-items: center;
+  background: #d66b42;
+  border-radius: 50%;
+  color: #fffdf8;
+  display: flex;
+  font-weight: 800;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.owner-line div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.owner-line small {
+  color: #657169;
+  font-size: 12px;
+}
+
+.owner-line strong {
+  color: #17251f;
+}
+
+.contact-button {
+  gap: 8px;
+  margin-top: 28px;
+  width: 100%;
+}
+
+.contact-button small {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.detail-information {
+  border-top: 1px solid #cbd5cc;
+  display: grid;
+  gap: 70px;
+  grid-template-columns: 1fr 1fr;
+  margin: 80px auto 0;
+  max-width: 1120px;
+  padding: 50px 0 70px;
+}
+
+.detail-information h2,
+.availability-band h2 {
+  color: #17251f;
+  font-family: inherit;
+  font-size: 28px;
+  margin: 0 0 18px;
+}
+
+.detail-description > p:not(.eyebrow) {
+  color: #536058;
+  line-height: 1.65;
+  max-width: 520px;
+}
+
+.address-line {
+  color: #c25634 !important;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.facts-grid,
+.amenity-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.facts-grid span,
+.amenity-list span {
+  background: #e8eee8;
+  border-radius: 4px;
+  color: #536058;
+  font-size: 14px;
+  padding: 10px 12px;
+}
+
+.facts-grid strong {
+  color: #17251f;
+  font-size: 19px;
+}
+
+.amenity-list {
+  margin-top: 20px;
+}
+
+.availability-band {
+  background: #17251f;
+  color: #fffdf8;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: 0.8fr 1.2fr;
+  margin: 0 -72px;
+  padding: 48px max(72px, calc((100% - 1120px) / 2));
+}
+
+.availability-band h2 {
+  color: #fffdf8;
+}
+
+.availability-band .eyebrow {
+  color: #e5a486;
+}
+
+.availability-band dl {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+}
+
+.availability-band dt {
+  color: #aebfb1;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.availability-band dd {
+  font-size: 16px;
+  margin: 7px 0 0;
+}
+
 @media (max-width: 600px) {
   .topbar-actions .button-quiet {
     padding: 0 7px;
@@ -554,5 +793,36 @@ input:focus {
 
   .search-header {
     margin-top: 70px;
+  }
+
+  .detail-layout,
+  .detail-information,
+  .availability-band {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .detail-layout {
+    gap: 30px;
+  }
+
+  .detail-information {
+    gap: 40px;
+  }
+
+  .availability-band {
+    gap: 25px;
+    margin: 0 -20px;
+    padding: 38px 20px;
+  }
+
+  .availability-band dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .availability-band dl div {
+    min-width: 130px;
   }
 }

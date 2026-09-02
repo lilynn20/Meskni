@@ -29,6 +29,16 @@ export type Listing = {
   status: string
   created_at: string | null
   updated_at: string | null
+  owner?: { id: number; name: string }
+  images?: ListingImage[]
+}
+
+export type ListingImage = {
+  id: number
+  path: string
+  original_name: string
+  mime_type: string
+  size: number
 }
 
 export type CreateListingPayload = Omit<Listing, 'id' | 'owner_id' | 'status' | 'created_at' | 'updated_at' | 'address' | 'available_from' | 'estimated_utilities' | 'deposit' | 'bedrooms' | 'bathrooms' | 'surface_area' | 'current_occupants' | 'available_spots'> & {
