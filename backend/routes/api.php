@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SavedListingController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/messages', [MessageController::class, 'index']);
     Route::post('/listings/{listing}/messages', [MessageController::class, 'store']);
     Route::post('/messages/{message}/reply', [MessageController::class, 'reply']);
+    Route::post('/listings/{listing}/reports', [ReportController::class, 'store']);
+    Route::get('/reports', [ReportController::class, 'index']);
+    Route::patch('/reports/{report}', [ReportController::class, 'update']);
 });

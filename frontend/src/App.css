@@ -980,6 +980,102 @@ input:focus {
   flex: 0 0 auto;
 }
 
+.report-box {
+  background: #fffdf8;
+  border: 1px solid #d5ddd4;
+  border-radius: 8px;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 auto 70px;
+  max-width: 1120px;
+  padding: 28px;
+}
+
+.report-box h2 {
+  color: #17251f;
+  font-family: inherit;
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+
+.report-box p:not(.eyebrow) {
+  color: #657169;
+  line-height: 1.5;
+}
+
+.report-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.report-form .button {
+  align-self: flex-start;
+}
+
+.report-list {
+  display: grid;
+  gap: 18px;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.report-card {
+  background: #fffdf8;
+  border: 1px solid #d5ddd4;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.report-heading {
+  align-items: start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.report-heading h2 {
+  color: #17251f;
+  font-family: inherit;
+  font-size: 23px;
+  margin: 8px 0 0;
+}
+
+.report-status {
+  border-radius: 4px;
+  color: #536058;
+  font-size: 12px;
+  padding: 6px 8px;
+  text-transform: capitalize;
+}
+
+.report-status.pending { background: #f9e5ba; }
+.report-status.under_review { background: #dce8f4; }
+.report-status.resolved { background: #dceedd; }
+.report-status.dismissed { background: #e7e7e4; }
+
+.report-meta,
+.report-details {
+  color: #657169;
+  font-size: 14px;
+  margin: 16px 0 0;
+}
+
+.report-details {
+  background: #f6f1e8;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.report-actions {
+  border-top: 1px solid #d5ddd4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 16px;
+}
+
 @media (max-width: 600px) {
   .topbar-actions .button-quiet {
     padding: 0 7px;
@@ -1062,5 +1158,17 @@ input:focus {
 
   .message-bubble {
     max-width: 88%;
+  }
+
+  .report-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+    padding: 20px;
+  }
+
+  .report-heading {
+    flex-direction: column;
+    gap: 12px;
   }
 }
