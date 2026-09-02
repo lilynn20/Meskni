@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
 import { AccountPage } from './pages/AccountPage'
+import { CreateListingPage } from './pages/CreateListingPage'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
@@ -20,6 +21,14 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return children
 }
 
+function OwnerRoute({ children }: { children: React.ReactNode }) {
+  const { user, status } = useAuth()
+
+  if (status === 'loading') return <main className="page-state">Restoring your session...</main>
+  if (user?.role !== 'owner' && user?.role !== 'admin') return <Navigate to="/account" replace />
+  return children
+}
+
 export function AppRoutes() {
   return (
     <Routes>
@@ -27,6 +36,7 @@ export function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
+      <Route path="/listings/new" element={<ProtectedRoute><OwnerRoute><CreateListingPage /></OwnerRoute></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

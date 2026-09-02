@@ -157,9 +157,46 @@ h1 {
 }
 
 .auth-form {
-  gap: 19px;
+  background: #fffdf8;
+  border: 1px solid #bcc9be;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #17251f;
+  font: inherit;
+  min-height: 46px;
+  padding: 9px 12px;
+  width: 100%;
 }
 
+textarea,
+select {
+  background: #fffdf8;
+  border: 1px solid #bcc9be;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #17251f;
+  font: inherit;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+textarea:focus,
+select:focus {
+  border-color: #5c7d68;
+  outline: 3px solid #d66b42;
+  outline-offset: 3px;
+}
+
+em {
+  color: #849087;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+}
 .field {
   color: #26362e;
   gap: 7px;
@@ -168,12 +205,36 @@ h1 {
 
 .field span,
 .role-field legend {
+.form-success {
+  background: #e2f0e3;
+  border-radius: 4px;
+  color: #2d6940;
+  margin: 0;
+  padding: 10px 12px;
+}
+
+.image-previews {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 5px;
+}
+
+.image-previews img {
+  aspect-ratio: 1;
+  border-radius: 5px;
+  object-fit: cover;
+  width: 100%;
+}
   font-size: 14px;
   font-weight: 700;
 }
 
 input {
   background: #fffdf8;
+  .image-previews {
+    grid-template-columns: repeat(2, 1fr);
+  }
   border: 1px solid #bcc9be;
   border-radius: 5px;
   box-sizing: border-box;
