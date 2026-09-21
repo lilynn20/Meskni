@@ -29,6 +29,9 @@ class AffordabilityCalculatorTest extends TestCase
         $this->postJson('/api/calculators/affordability', ['monthly_income' => 0, 'monthly_rent' => 1000])
             ->assertUnprocessable();
 
+        $this->postJson('/api/calculators/affordability', ['monthly_income' => -500, 'monthly_rent' => 1000])
+            ->assertUnprocessable();
+
         $this->postJson('/api/calculators/affordability', ['monthly_income' => 2000, 'monthly_rent' => 2500])
             ->assertOk()
             ->assertJsonPath('data.remaining_income', -500)

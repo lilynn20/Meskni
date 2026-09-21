@@ -32,12 +32,20 @@ class MessageController extends Controller
         abort_if($request->user()->id === $listing->owner_id, 422, 'You cannot message yourself.');
 
         $validated = $request->validate(['body' => ['required', 'string', 'min:2', 'max:5000']]);
+        $body = trim($validated['body']);
+
+        if ($body === '') {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'body' => ['The message body is required.'],
+            ]);
+        }
+
         $message = Message::create([
             'thread_id' => (string) Str::uuid(),
             'listing_id' => $listing->id,
             'sender_id' => $request->user()->id,
             'receiver_id' => $listing->owner_id,
-            'body' => trim($validated['body']),
+            'body' => $body,
         ]);
 
         return response()->json(['data' => $this->message($message->load(['listing:id,title,city,neighborhood', 'sender:id,name', 'receiver:id,name']))], 201);
@@ -49,12 +57,20 @@ class MessageController extends Controller
         abort_if($request->user()->id === $message->sender_id && $request->user()->role !== 'owner', 403);
 
         $validated = $request->validate(['body' => ['required', 'string', 'min:2', 'max:5000']]);
+        $body = trim($validated['body']);
+
+        if ($body === '') {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'body' => ['The message body is required.'],
+            ]);
+        }
+
         $reply = Message::create([
             'thread_id' => $message->thread_id,
             'listing_id' => $message->listing_id,
             'sender_id' => $request->user()->id,
             'receiver_id' => $request->user()->id === $message->sender_id ? $message->receiver_id : $message->sender_id,
-            'body' => trim($validated['body']),
+            'body' => $body,
         ]);
 
         return response()->json(['data' => $this->message($reply->load(['listing:id,title,city,neighborhood', 'sender:id,name', 'receiver:id,name']))], 201);

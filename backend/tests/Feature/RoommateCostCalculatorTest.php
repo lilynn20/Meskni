@@ -24,5 +24,8 @@ class RoommateCostCalculatorTest extends TestCase
     {
         $this->postJson('/api/calculators/roommate', ['monthly_rent' => 4000, 'occupants' => 0])
             ->assertUnprocessable();
+
+        $this->postJson('/api/calculators/roommate', ['monthly_rent' => 4000, 'occupants' => -1])
+            ->assertUnprocessable();
     }
 }

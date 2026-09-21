@@ -34,6 +34,17 @@ class ReportTest extends TestCase
         $this->actingAs($seeker, 'sanctum')->getJson('/api/reports')->assertForbidden();
     }
 
+    public function test_nonexistent_report_and_listing_ids_are_not_found(): void
+    {
+        $owner = User::factory()->create(['role' => 'owner']);
+        $seeker = User::factory()->create(['role' => 'seeker']);
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $this->actingAs($seeker, 'sanctum')->postJson('/api/listings/999999/reports', ['reason' => 'scam'])->assertNotFound();
+        $this->actingAs($admin, 'sanctum')->patchJson('/api/reports/999999', ['status' => 'resolved'])->assertNotFound();
+        $this->actingAs($owner, 'sanctum')->getJson('/api/listings/999999')->assertNotFound();
+    }
+
     private function createListing(User $owner): Listing
     {
         return Listing::create(['owner_id' => $owner->id, 'title' => 'Bright room', 'description' => 'A comfortable room with natural light.', 'property_type' => 'room', 'listing_type' => 'private_room', 'city' => 'Casablanca', 'neighborhood' => 'Maarif', 'rent' => 3500]);

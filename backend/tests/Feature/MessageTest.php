@@ -40,6 +40,44 @@ class MessageTest extends TestCase
         $this->actingAs($owner, 'sanctum')->postJson("/api/listings/{$listing->id}/messages", ['body' => 'Hello'])->assertForbidden();
     }
 
+    public function test_legitimate_conversation_participant_can_reply(): void
+    {
+        $owner = User::factory()->create(['role' => 'owner']);
+        $seeker = User::factory()->create(['role' => 'seeker']);
+        $listing = $this->createListing($owner);
+
+        $inquiry = $this->actingAs($seeker, 'sanctum')->postJson("/api/listings/{$listing->id}/messages", ['body' => 'Is this room still available?']);
+        $messageId = $inquiry->json('data.id');
+
+        $this->actingAs($owner, 'sanctum')->postJson("/api/messages/{$messageId}/reply", ['body' => 'Yes, it is available.'])
+            ->assertCreated()
+            ->assertJsonPath('data.receiver_id', $seeker->id);
+    }
+
+    public function test_unrelated_authenticated_user_cannot_reply_to_a_thread(): void
+    {
+        $owner = User::factory()->create(['role' => 'owner']);
+        $seeker = User::factory()->create(['role' => 'seeker']);
+        $other = User::factory()->create(['role' => 'seeker']);
+        $listing = $this->createListing($owner);
+
+        $inquiry = $this->actingAs($seeker, 'sanctum')->postJson("/api/listings/{$listing->id}/messages", ['body' => 'Is this room still available?']);
+        $messageId = $inquiry->json('data.id');
+
+        $this->actingAs($other, 'sanctum')->postJson("/api/messages/{$messageId}/reply", ['body' => 'I should not be allowed to reply.'])
+            ->assertForbidden();
+    }
+
+    public function test_whitespace_only_message_body_is_rejected(): void
+    {
+        $owner = User::factory()->create(['role' => 'owner']);
+        $seeker = User::factory()->create(['role' => 'seeker']);
+        $listing = $this->createListing($owner);
+
+        $this->actingAs($seeker, 'sanctum')->postJson("/api/listings/{$listing->id}/messages", ['body' => '   '])
+            ->assertUnprocessable();
+    }
+
     private function createListing(User $owner): Listing
     {
         return Listing::create([

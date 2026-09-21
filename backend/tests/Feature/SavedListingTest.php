@@ -52,6 +52,19 @@ class SavedListingTest extends TestCase
             ->assertForbidden();
     }
 
+    public function test_duplicate_saved_listing_is_not_created_twice(): void
+    {
+        $seeker = User::factory()->create(['role' => 'seeker']);
+        $listing = $this->createListing();
+
+        $this->actingAs($seeker, 'sanctum')->postJson("/api/listings/{$listing->id}/save")->assertOk();
+        $this->actingAs($seeker, 'sanctum')->postJson("/api/listings/{$listing->id}/save")->assertOk();
+
+        $this->actingAs($seeker, 'sanctum')->getJson('/api/saved-listings')
+            ->assertOk()
+            ->assertJsonCount(1, 'data');
+    }
+
     private function createListing(): Listing
     {
         return Listing::create([

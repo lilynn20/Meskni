@@ -124,6 +124,40 @@ class ListingTest extends TestCase
             ->assertJsonPath('data.title', 'Bright room near Agdal');
     }
 
+    public function test_archived_listing_cannot_be_retrieved_via_public_detail_endpoint(): void
+    {
+        $owner = User::factory()->create(['role' => 'owner', 'status' => 'active']);
+
+        $listingResponse = $this->actingAs($owner, 'sanctum')->postJson('/api/listings', [
+            'title' => 'Archived room',
+            'description' => 'This room is no longer public.',
+            'property_type' => 'room',
+            'listing_type' => 'private_room',
+            'city' => 'Fez',
+            'neighborhood' => 'Fes el Bali',
+            'address' => 'Street 9',
+            'rent' => 1800,
+            'estimated_utilities' => 250,
+            'deposit' => 400,
+            'available_from' => '2026-12-01',
+            'bedrooms' => 1,
+            'bathrooms' => 1,
+            'surface_area' => 22,
+            'furnished' => true,
+            'internet_included' => true,
+            'parking' => false,
+            'gender_preference' => 'any',
+            'current_occupants' => 0,
+            'available_spots' => 1,
+            'max_occupants' => 2,
+            'status' => 'archived',
+        ]);
+
+        $listingId = $listingResponse->json('data.id');
+
+        $this->getJson("/api/listings/{$listingId}")->assertNotFound();
+    }
+
     public function test_image_upload_and_validation_work_for_listings(): void
     {
         $owner = User::factory()->create(['role' => 'owner', 'status' => 'active']);
@@ -167,5 +201,11 @@ class ListingTest extends TestCase
         ]);
 
         $invalidResponse->assertStatus(422);
+
+        $oversizedResponse = $this->actingAs($owner, 'sanctum')->postJson('/api/listings/' . $listingId . '/images', [
+            'images' => [UploadedFile::fake()->create('oversized.jpg', 3000, 'image/jpeg')],
+        ]);
+
+        $oversizedResponse->assertStatus(422);
     }
 }

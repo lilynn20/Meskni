@@ -33,6 +33,8 @@ class ListingController extends Controller
 
     public function show(Listing $listing): JsonResponse
     {
+        abort_if($listing->status === 'archived', 404);
+
         return response()->json([
             'data' => new ListingResource($listing->load(['owner:id,name', 'images'])),
         ]);
