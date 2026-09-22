@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 import { ApiError } from '../api/client'
 import { calculateAffordability } from '../api/calculators'
@@ -23,7 +23,11 @@ function statusCopy(result: AffordabilityResult) {
 }
 
 export function AffordabilityPage() {
-  const [values, setValues] = useState<AffordabilityPayload>(initialValues)
+  const [searchParams] = useSearchParams()
+  const [values, setValues] = useState<AffordabilityPayload>(() => ({
+    ...initialValues,
+    monthly_rent: Number(searchParams.get('monthly_rent') ?? initialValues.monthly_rent),
+  }))
   const [result, setResult] = useState<AffordabilityResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

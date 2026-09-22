@@ -1014,6 +1014,13 @@ input:focus {
   align-self: flex-start;
 }
 
+.detail-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 24px;
+}
+
 .report-list {
   display: grid;
   gap: 18px;

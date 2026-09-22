@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 import { ApiError } from '../api/client'
 import { calculateRoommateCost } from '../api/calculators'
@@ -16,7 +16,13 @@ const initialValues: RoommatePayload = { monthly_rent: 4000, occupants: 3, utili
 const labels: Record<keyof RoommatePayload, string> = { monthly_rent: 'Monthly rent', occupants: 'Number of occupants', utilities: 'Shared utilities', additional_shared_costs: 'Additional shared costs' }
 
 export function RoommateCalculatorPage() {
-  const [values, setValues] = useState<RoommatePayload>(initialValues)
+  const [searchParams] = useSearchParams()
+  const [values, setValues] = useState<RoommatePayload>(() => ({
+    ...initialValues,
+    monthly_rent: Number(searchParams.get('monthly_rent') ?? initialValues.monthly_rent),
+    occupants: Number(searchParams.get('occupants') ?? initialValues.occupants),
+    utilities: Number(searchParams.get('utilities') ?? initialValues.utilities),
+  }))
   const [result, setResult] = useState<RoommateResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
