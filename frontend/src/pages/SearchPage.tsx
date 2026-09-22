@@ -1,16 +1,24 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { ApiError } from '../api/client'
-import { searchListings } from '../api/listings'
+import { listingImageUrl, searchListings } from '../api/listings'
 import { SaveButton } from '../components/SaveButton'
 import type { Listing, ListingFilters, ListingPage } from '../types/listing'
 
 const emptyFilters: ListingFilters = { city: '', neighborhood: '', min_price: undefined, max_price: undefined, property_type: undefined, listing_type: undefined, furnished: undefined, parking: undefined }
 
 function ListingCard({ listing }: { listing: Listing }) {
+  const firstImage = listing.images?.[0]
+
   return (
     <article className="listing-card-item">
-      <div className="listing-placeholder" aria-hidden="true"><span>{listing.property_type}</span></div>
+      {firstImage ? (
+        <div className="listing-image-box">
+          <img className="listing-card-image" src={listingImageUrl(firstImage.path)} alt={`${listing.title} photo`} />
+        </div>
+      ) : (
+        <div className="listing-placeholder" aria-hidden="true"><span>{listing.property_type}</span></div>
+      )}
       <div className="listing-card-content">
         <div className="listing-card-heading"><p className="listing-location">{listing.city} · {listing.neighborhood}</p><div className="listing-card-actions"><span className="listing-price">{listing.rent.toLocaleString()} MAD</span><SaveButton listingId={listing.id} /></div></div>
         <h2>{listing.title}</h2>

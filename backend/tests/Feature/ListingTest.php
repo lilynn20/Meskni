@@ -196,6 +196,11 @@ class ListingTest extends TestCase
         $uploadResponse->assertStatus(200)
             ->assertJsonPath('data.images.0.path', fn ($path) => is_string($path));
 
+        $searchResponse = $this->getJson('/api/listings?city=Casablanca');
+
+        $searchResponse->assertStatus(200)
+            ->assertJsonPath('data.0.images.0.path', fn ($path) => is_string($path));
+
         $invalidResponse = $this->actingAs($owner, 'sanctum')->postJson('/api/listings/' . $listingId . '/images', [
             'images' => [UploadedFile::fake()->create('bad.txt', 100, 'text/plain')],
         ]);

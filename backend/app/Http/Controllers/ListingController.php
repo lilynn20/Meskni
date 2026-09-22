@@ -18,7 +18,10 @@ class ListingController extends Controller
     {
         $query = $searchService->buildQuery($request->all());
 
-        $listings = $query->orderByDesc('created_at')->paginate($request->input('per_page', 12));
+        $listings = $query
+            ->with(['owner:id,name', 'images'])
+            ->orderByDesc('created_at')
+            ->paginate($request->input('per_page', 12));
 
         return response()->json([
             'data' => ListingResource::collection($listings),
