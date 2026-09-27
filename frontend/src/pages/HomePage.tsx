@@ -17,15 +17,22 @@ export function HomePage() {
         </div>
       </nav>
       <section className="welcome-panel">
-        <p className="eyebrow">Housing, made human</p>
-        <h1>Find a place that feels like yours.</h1>
-        <p className="welcome-copy">Meskni brings Morocco&apos;s rental search into one calmer, clearer place.</p>
-        <div className="welcome-actions">
-          <Link className="button button-dark" to={isAuthenticated ? '/account' : '/register'}>{isAuthenticated ? 'Open your account' : 'Start with Meskni'}</Link>
-          <Link className="button button-quiet" to="/listings">Browse listings</Link>
-          <Link className="button button-quiet" to="/calculators/affordability">Check affordability</Link>
-          <Link className="button button-quiet" to="/calculators/roommate">Split shared costs</Link>
-          <span className="welcome-note">Your next chapter starts here.</span>
+        <div className="hero-panel">
+          <p className="eyebrow">Housing, made human</p>
+          <h1>Find a place that feels like yours.</h1>
+          <p className="welcome-copy">Meskni brings Morocco&apos;s rental search into one calmer, clearer place.</p>
+          <div className="welcome-actions">
+            <Link className="button button-dark" to={isAuthenticated ? '/account' : '/register'}>{isAuthenticated ? 'Open your account' : 'Start with Meskni'}</Link>
+            <Link className="button button-quiet" to="/listings">Browse listings</Link>
+            <Link className="button button-quiet" to="/calculators/affordability">Check affordability</Link>
+            <Link className="button button-quiet" to="/calculators/roommate">Split shared costs</Link>
+          </div>
+          <div className="hero-pills" aria-label="Key Meskni features">
+            <span>Verified listings</span>
+            <span>Search by city</span>
+            <span>Budget clarity</span>
+          </div>
+          <p className="welcome-note">Your next chapter starts here.</p>
         </div>
       </section>
     </main>
