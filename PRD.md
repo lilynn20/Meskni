@@ -148,19 +148,39 @@ The following are explicitly not included in the MVP:
 
 ## 7. Roles and Permissions
 
-| Role | Description | Permissions |
-|---|---|---|
-| Visitor | Unauthenticated user | Browse public listings, view basic listing details |
-| User | Registered normal account | Search, save listings, contact owners, report listings |
-| Owner | Registered user with listing permissions | Create/edit/delete own listings |
-| Admin | Platform moderator | Review reports, suspend users, manage listings |
+### 7.1 Role model
 
-### Business rules
+| Role | Account state | Core permissions | Restrictions |
+|---|---|---|---|
+| Visitor | Unauthenticated | View public listings and public detail pages, search by city/neighborhood, view pricing and availability info | Cannot create listings, save listings, message owners, or report content |
+| Seeker | Authenticated normal user | Search and filter listings, save favorites, contact owners, report suspicious listings, use affordability and roommate calculators | Cannot publish or manage listings unless upgraded to owner role |
+| Owner | Authenticated user with owner capability | Create listings, upload listing images, edit their listings, archive or remove their listings, receive inquiries | Cannot edit or delete listings they do not own |
+| Admin | Platform moderator | Review and resolve reports, suspend or warn abusive users, hide/remove unsafe listings, audit listing activity | Cannot modify unrelated user records without an explicit moderation action |
+
+### 7.2 Permission rules
+
+- Authentication is required for all write operations: create listing, save listing, send inquiry, submit report.
+- Listing ownership is enforced at the record level: only the listing owner can update, delete, archive, or replace the listing’s media.
+- Admin actions are scoped to moderation workflows and must be logged for auditability.
+- A public listing is visible only when its status is active and not archived or rented.
+- Duplicate saves and repeat reports for the same listing by the same user should be prevented or collapsed to a single pending state.
+- The system must never show a user private moderation data beyond their own account unless they are an admin.
+
+### 7.3 Ownership and authorization model
+
+- `User` has a `role` value such as `seeker`, `owner`, or `admin`.
+- `Owner` actions are evaluated against the `owner_id` on each listing record.
+- `Admin` checks are performed through explicit moderation authorization rather than role-based overrides on all user actions.
+- A listing belongs to one owner, but many seekers may save it or message about it without changing ownership.
+- Moderation actions should separate the permission to review reports from the permission to alter listings or users.
+
+### 7.4 Business rules
 - Only authenticated users can save listings, contact owners, and report listings.
 - Only the owner can edit or delete their own listing.
 - Admins can review and resolve reports.
-- Listings can be marked as active, rented, or archived.
+- Listings can be marked as active, rented, archived, or hidden via moderation.
 - Users should not be able to edit or remove another user's listings.
+- Report actions should block self-reports and duplicate submissions for the same listing.
 
 ---
 
