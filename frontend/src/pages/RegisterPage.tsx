@@ -12,6 +12,8 @@ const registerSchema = z.object({
   city: z.string().trim().min(2, 'Enter your city.'),
   role: z.enum(['seeker', 'owner']),
   password: z.string().min(8, 'Use at least 8 characters.'),
+  consent: z.boolean().refine((value) => value, 'Please agree to the privacy terms before continuing.'),
+  age_18: z.boolean().refine((value) => value, 'You must confirm you are at least 18 years old.'),
 })
 
 type RegisterFormValues = z.infer<typeof registerSchema>
@@ -19,7 +21,10 @@ type RegisterFormValues = z.infer<typeof registerSchema>
 export function RegisterPage() {
   const { register: registerUser } = useAuth()
   const navigate = useNavigate()
-  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<RegisterFormValues>({ resolver: zodResolver(registerSchema), defaultValues: { role: 'seeker' } })
+  const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: { role: 'seeker', consent: false, age_18: false },
+  })
 
   async function submit(values: RegisterFormValues) {
     try {
@@ -46,6 +51,19 @@ export function RegisterPage() {
           <label className="field"><span>Phone number</span><input type="tel" autoComplete="tel" {...register('phone')} />{errors.phone && <small className="field-error">{errors.phone.message}</small>}</label>
           <fieldset className="field role-field"><legend>I am joining as</legend><label className="choice"><input type="radio" value="seeker" {...register('role')} /> Looking for housing</label><label className="choice"><input type="radio" value="owner" {...register('role')} /> Offering a property</label>{errors.role && <small className="field-error">{errors.role.message}</small>}</fieldset>
           <label className="field"><span>Password</span><input type="password" autoComplete="new-password" {...register('password')} />{errors.password && <small className="field-error">{errors.password.message}</small>}</label>
+
+          <label className="choice consent-choice">
+            <input type="checkbox" {...register('consent')} />
+            <span>I agree to the <Link to="/legal/privacy-policy">privacy policy</Link> and the <Link to="/legal/terms-of-service">terms of service</Link>.</span>
+          </label>
+          {errors.consent && <small className="field-error">{errors.consent.message}</small>}
+
+          <label className="choice consent-choice">
+            <input type="checkbox" {...register('age_18')} />
+            <span>I confirm I am at least 18 years old.</span>
+          </label>
+          {errors.age_18 && <small className="field-error">{errors.age_18.message}</small>}
+
           {errors.root && <p className="form-error" role="alert">{errors.root.message}</p>}
           <button className="button button-dark button-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Creating account...' : 'Create account'}</button>
         </form>

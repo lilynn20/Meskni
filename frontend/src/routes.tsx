@@ -12,6 +12,7 @@ import { MessagesPage } from './pages/MessagesPage'
 import { ReportsPage } from './pages/ReportsPage'
 import { AffordabilityPage } from './pages/AffordabilityPage'
 import { RoommateCalculatorPage } from './pages/RoommateCalculatorPage'
+import { LegalPage } from './pages/LegalPage'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, status } = useAuth()
@@ -50,6 +51,7 @@ export function AppRoutes() {
       <Route path="/calculators/affordability" element={<AffordabilityPage />} />
       <Route path="/calculators/roommate" element={<RoommateCalculatorPage />} />
       <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
+      <Route path="/legal/:slug" element={<LegalPage />} />
       <Route path="/listings/new" element={<ProtectedRoute><OwnerRoute><CreateListingPage /></OwnerRoute></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

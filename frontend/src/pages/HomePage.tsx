@@ -28,9 +28,9 @@ export function HomePage() {
             <Link className="button button-quiet" to="/calculators/roommate">Split shared costs</Link>
           </div>
           <div className="hero-pills" aria-label="Key Meskni features">
-            <span>Verified listings</span>
             <span>Search by city</span>
-            <span>Budget clarity</span>
+            <span>Clear pricing</span>
+            <span>Simple filters</span>
           </div>
           <p className="welcome-note">Your next chapter starts here.</p>
         </div>

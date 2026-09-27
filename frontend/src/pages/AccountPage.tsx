@@ -23,6 +23,15 @@ export function AccountPage() {
             <div><dt>City</dt><dd>{user?.city}</dd></div>
             <div><dt>Account type</dt><dd>{user?.role}</dd></div>
           </dl>
+
+          <div className="privacy-panel">
+            <h2>Privacy controls</h2>
+            <ul>
+              <li><Link to="/legal/privacy-policy">Review our privacy policy</Link></li>
+              <li><a href="mailto:hello@meskni.ma?subject=Delete%20my%20data">Request data deletion</a></li>
+              <li><a href="mailto:hello@meskni.ma?subject=Unsubscribe%20from%20Meskni%20emails">Unsubscribe from email updates</a></li>
+            </ul>
+          </div>
         </div>
       </section>
     </main>
