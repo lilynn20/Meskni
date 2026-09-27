@@ -184,7 +184,53 @@ The following are explicitly not included in the MVP:
 
 ---
 
-## 8. Core Functional Requirements
+## 8. Core Features and Functionalities
+
+This section summarizes the main product features that define the MVP and the user journeys the app must support.
+
+### 8.1 Public listing discovery
+- Visitors and seekers can browse active listings from a city or neighborhood.
+- Search results show a concise listing card with price, neighborhood, property type, and a primary image.
+- Listing detail pages reveal full information about a property, including amenities, pricing, availability, and the owner contact flow.
+- Listings marked as archived, hidden, or rented should not appear in public search results.
+
+### 8.2 Listing management for owners
+- Owners can create detailed rental listings with the required property and pricing metadata.
+- Owners can upload multiple listing images and manage the image set.
+- Owners can update their listings and mark them as inactive, rented, or archived when the availability changes.
+- Only the owner can modify or remove their own listing data.
+
+### 8.3 Saved listings and wishlisting
+- Authenticated seekers can save listings they want to revisit.
+- The saved-listings page surfaces favorite properties in a dedicated space.
+- Duplicate saves are prevented and users can remove saved entries at any time.
+
+### 8.4 Contact and trust flow
+- Authenticated users can send a short inquiry to a listing owner from the listing detail page.
+- The message is associated with the relevant listing and sender/receiver pair.
+- Users can report suspicious listings using a reason-based moderation flow.
+- Reports are stored with the listing, reporter, status, and timestamps for admin review.
+
+### 8.5 Affordability and roommate planning
+- Seekers can estimate affordability using monthly income and expense inputs.
+- Users can calculate estimated cost split per roommate or per person for a shared arrangement.
+- The calculators should be easy to use, prefilled when data is available, and presented as decision-support tools rather than formal financial advice.
+
+### 8.6 User account and profile
+- Users can register, log in, and manage their account profile.
+- Profiles include personal information and a profile image.
+- Users can select whether they are seeking housing, offering a property, or doing both depending on product flow.
+
+### 8.7 Admin moderation workflow
+- Admins can review incoming reports, inspect the relevant listing, and update report status.
+- Moderation actions can hide unsafe listings, warn users, or escalate issues in a controlled workflow.
+- Admin actions must be auditable to maintain platform trust.
+
+These features represent the product’s operational core and should guide the MVP feature set, roadmap, and implementation sequencing.
+
+---
+
+## 9. Core Functional Requirements
 
 ### 8.1 Authentication
 Users must be able to:
