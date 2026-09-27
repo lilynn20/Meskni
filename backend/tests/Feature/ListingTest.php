@@ -90,7 +90,7 @@ class ListingTest extends TestCase
             'status' => 'active',
         ]);
 
-        $this->actingAs($owner, 'sanctum')->postJson('/api/listings', [
+        $createResponse = $this->actingAs($owner, 'sanctum')->postJson('/api/listings', [
             'title' => 'Bright room near Agdal',
             'description' => 'Comfortable room in a central area.',
             'property_type' => 'room',
@@ -115,11 +115,13 @@ class ListingTest extends TestCase
             'status' => 'active',
         ]);
 
+        $listingId = $createResponse->json('data.id');
+
         $search = $this->getJson('/api/listings?city=Rabat');
         $search->assertStatus(200)
             ->assertJsonPath('data.0.title', 'Bright room near Agdal');
 
-        $detail = $this->getJson('/api/listings/1');
+        $detail = $this->getJson("/api/listings/{$listingId}");
         $detail->assertStatus(200)
             ->assertJsonPath('data.title', 'Bright room near Agdal');
     }
