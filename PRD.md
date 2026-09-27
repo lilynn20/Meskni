@@ -688,44 +688,64 @@ Admins must be able to:
 
 ## 16. Recommended Initial Backlog
 
+The product should ship in a tight sequence so the most valuable end-to-end journeys are validated before deeper feature expansion.
+
 ### Phase 1 — Foundation
-- project setup
-- database design
-- authentication
-- role-based access control
-- profile management
+- project setup and environment hardening
+- relational database design and migrations
+- authentication and session handling
+- role-based access control for seeker, owner, and admin
+- user profile creation and profile updates
 
-### Phase 2 — Listings
-- create listing
-- edit listing
-- delete listing
-- photo upload
-- listing status management
+### Phase 2 — Listings and media
+- create listing workflow
+- edit and delete listing actions
+- listing image upload and validation
+- listing lifecycle states (active, rented, archived)
+- listing ownership checks and guard conditions
 
-### Phase 3 — Discovery
-- browse listings
-- advanced search and filters
-- listing detail pages
-- pagination
+### Phase 3 — Discovery and details
+- public listing index and search
+- city/neighborhood filtering
+- property type and price filters
+- listing detail view with images and metadata
+- pagination and default search behavior
 
-### Phase 4 — Financial features
+### Phase 4 — Financial decision support
 - roommate cost estimator
 - affordability calculator
+- inline calculation results and validation messages
+- calculator states for empty, invalid, and valid inputs
 
-### Phase 5 — Engagement
-- save listings
-- contact owner
+### Phase 5 — Engagement and trust
+- save listing feature
+- contact owner message flow
+- report listing flow with reason and details
+- duplicate report prevention and status tracking
 
-### Phase 6 — Safety and moderation
-- report listing
-- admin review dashboard
-- moderation actions
+### Phase 6 — Moderation and safety
+- admin dashboard for reports
+- listing and user moderation controls
+- resolution and audit trail
+- user warnings and suspensions
 
-### Phase 7 — Hardening
-- validation
-- security
-- tests
-- deployment
+### Phase 7 — Hardening and launch readiness
+- server-side validation and authorization review
+- rate limiting and abuse prevention
+- regression testing for core user journeys
+- deployment configuration and production environment checks
+
+### Delivery backlog by priority
+
+| Priority | Backlog item | Outcome |
+|---|---|---|
+| P0 | Authentication and roles | Secure login, ownership model, and access control |
+| P0 | Listings create/edit/manage | Owners can publish and maintain listings reliably |
+| P0 | Search and detail pages | Seekers can discover and evaluate listings |
+| P1 | Save listings and contact flow | Users can act on listings they like |
+| P1 | Reports and admin review | Safety and trust mechanisms are operational |
+| P1 | Calculators | Price and affordability decisions are supported |
+| P2 | Hardening and launch prep | Security and reliability are production-ready |
 
 ---
 
